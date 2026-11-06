@@ -1,0 +1,31 @@
+column,dtype_in_memory,description,prediction_input
+flight_id,int64,Stable source row identifier for this downloaded snapshot,False
+year,int64,Scheduled departure year,False
+month,int64,Scheduled departure month,True
+day,int64,Scheduled departure day of month,False
+dep_time,float64,"Actual departure, local HHMM; 2400 is midnight",False
+sched_dep_time,int64,"Scheduled departure, origin local HHMM",False
+dep_delay,float64,Departure delay in minutes; negative means early,False
+arr_time,float64,"Actual arrival, destination local HHMM; 2400 is midnight",False
+sched_arr_time,int64,"Scheduled arrival, destination local HHMM",False
+arr_delay,float64,Arrival delay in minutes; negative means early,False
+carrier,object,Two-letter airline code,True
+flight,int64,Flight number,True
+tailnum,object,Aircraft registration; excluded from initial predictors,False
+origin,object,Origin airport code,True
+dest,object,Destination airport code,True
+air_time,float64,Actual airborne duration in minutes,False
+distance,int64,Distance in miles,True
+hour,int64,Scheduled departure hour,False
+minute,int64,Scheduled departure minute,False
+time_hour,object,Source scheduled departure hour timestamp; retained unchanged,False
+date,datetime64[ns],Scheduled departure date (origin local calendar),False
+sched_dep_minutes,Int64,Scheduled departure minutes since midnight,True
+sched_arr_minutes,Int64,Scheduled arrival local minutes since midnight; not a duration,True
+day_of_week,int32,Monday=0 through Sunday=6,True
+day_of_year,int32,Calendar day 1-365,True
+is_weekend,bool,Saturday or Sunday,True
+route,object,Origin-destination pair,False
+label_observed,bool,Departure delay is observed,False
+delayed_15,Int64,"1 if departure delay >=15 minutes, 0 otherwise; missing if unknown",False
+split,object,train Jan-Aug; validation Sep-Oct; test Nov-Dec,False

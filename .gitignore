@@ -1,0 +1,10 @@
+.venv/
+.idea/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+outputs/
