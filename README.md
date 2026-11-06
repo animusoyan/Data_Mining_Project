@@ -1,8 +1,8 @@
 # NYC flight delays
 
-Version 1 uses NYC Flights 2013. Setup and data preparation are implemented;
-exploratory analysis, daily clustering, anomaly detection, prediction and a
-dashboard are the next stages. Weather is excluded.
+Version 1 uses NYC Flights 2013. Setup, data preparation and an exploratory
+analysis notebook are implemented. Daily clustering, anomaly detection,
+prediction and a dashboard are the next stages. Weather is excluded.
 
 ## Setup and run (PowerShell)
 
@@ -63,3 +63,23 @@ These are partitions only; no models have been trained.
 
 Only 2013 is covered, so findings cannot establish recurring annual trends or
 causal explanations. No weather data is downloaded or joined.
+
+## Exploratory analysis
+
+Open `notebooks/analysis.ipynb` with the project-local environment and run all
+cells in order. It reads the prepared CSV without changing it. Charts and tables
+are regenerated in `outputs/figures/` and `outputs/tables/`; the findings summary
+is generated at `reports/eda_findings.md`.
+
+The notebook covers weekly/monthly trends, delay distributions, airline/origin
+comparisons, the ten busiest routes, weekday/hour heatmaps and missing-label
+coverage. Rates use observed departure-delay labels as their denominator.
+Daily summaries are exported for subsequent clustering and anomaly detection.
+All-year historical exploration includes the held-out months; it must not be
+used to tune predictive models against final test outcomes.
+
+The notebook also follows up on July's high delay rate, the most disrupted
+days, airline comparisons within shared routes/months/departure-time bands,
+and morning versus evening rates within every airport and month. It exports
+the supporting tables and `reports/eda_followups.md`. Thresholds, overlap
+coverage and limitations are documented beside the comparisons.
