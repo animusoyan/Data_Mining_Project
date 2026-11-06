@@ -1,8 +1,8 @@
 # NYC flight delays
 
-Version 1 uses NYC Flights 2013. Setup, data preparation and an exploratory
-analysis notebook are implemented. Daily clustering, anomaly detection,
-prediction and a dashboard are the next stages. Weather is excluded.
+Version 1 uses NYC Flights 2013. Setup, data preparation, exploratory analysis,
+daily clustering and historical anomaly detection are implemented.
+Prediction and a dashboard are the next stages. Weather is excluded.
 
 ## Setup and run (PowerShell)
 
@@ -16,8 +16,8 @@ python -m venv .venv
 
 Alternatively run `python -m src.prepare` using that environment. Paths are
 resolved relative to the project, not the working directory. In PyCharm select
-the existing interpreter `.venv\Scripts\python.exe`. The IDE previously pointed
-to another project's environment; that environment has not been modified.
+the existing interpreter `.venv\Scripts\python.exe`. Install the requirements in
+the interpreter used by the notebook kernel as well if it differs from this one.
 
 ## Data and outputs
 
@@ -83,3 +83,32 @@ days, airline comparisons within shared routes/months/departure-time bands,
 and morning versus evening rates within every airport and month. It exports
 the supporting tables and `reports/eda_followups.md`. Thresholds, overlap
 coverage and limitations are documented beside the comparisons.
+
+## Daily clustering and anomaly detection
+
+Run all cells in `notebooks/daily_patterns.ipynb`. It rebuilds daily summaries
+directly from `flights_clean.csv`, so the EDA notebook need not run first.
+Reusable calculations are in `src/patterns.py`.
+
+K-means standardizes daily delay rate, median delay, 90th-percentile delay and
+flight count. It compares k=2..6, selecting the best silhouette among solutions
+with at least ten days in every cluster, and checks five additional seeds.
+Dates need at least 500 observed labels and 50% label coverage. Cluster IDs are
+ordered by mean daily delay rate; they are descriptive, not predictive labels.
+
+Delay and missing-label anomalies use separate rolling baselines of prior days.
+The primary threshold is the prior 28-calendar-day mean plus twice the prior
+standard deviation (floor: 0.02), requiring 21 historical observations. Current
+and future days cannot enter their own baseline. Warm-up and ineligible delay
+scores remain unknown. Sensitivity checks use a stricter threshold and a longer
+window; these are heuristic flags, not significance tests or confirmed events.
+
+Outputs include `outputs/tables/daily_patterns.csv`, cluster profiles and
+selection/stability scores, anomaly lists, sensitivity tables, and case studies.
+Figures are in `outputs/figures/`; the fitted scaler/model and configuration are
+in `outputs/models/`; the interpretation is in `reports/daily_patterns_findings.md`.
+Rerunning this notebook refreshes these generated outputs. Prepared data is unchanged.
+All-year clusters and same-day anomaly outcomes must not be used as pre-departure
+classifier inputs. Only 2013 is covered and weather remains excluded.
+
+Run checks with `python -m unittest discover -s tests -v` in the project environment.
