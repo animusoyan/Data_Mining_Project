@@ -2,7 +2,7 @@
 
 Version 1 uses NYC Flights 2013. Setup, data preparation, exploratory analysis,
 daily clustering and historical anomaly detection are implemented.
-Prediction and a dashboard are the next stages. Weather is excluded.
+Flight-delay classification and evaluation are implemented; the dashboard is the next stage. Weather is excluded.
 
 ## Setup and run (PowerShell)
 
@@ -59,7 +59,7 @@ The clean descriptive dataset retains actual times and outcomes. The classifier
 export excludes those fields and tail number. Prediction inputs are declared in
 `src/prepare.py::FEATURES`; preprocessing must be fitted on training data later.
 Train = January-August, validation = September-October, test = November-December.
-These are partitions only; no models have been trained.
+Preparation only declares these partitions; the separate prediction workflow fits models.
 
 Only 2013 is covered, so findings cannot establish recurring annual trends or
 causal explanations. No weather data is downloaded or joined.
@@ -112,3 +112,40 @@ All-year clusters and same-day anomaly outcomes must not be used as pre-departur
 classifier inputs. Only 2013 is covered and weather remains excluded.
 
 Run checks with `python -m unittest discover -s tests -v` in the project environment.
+
+## Flight-delay prediction
+
+Use the verified Python 3.13 environment with `requirements.txt`. On this checkout,
+that existing interpreter is
+`/Users/animusoyan/PycharmProjects/PythonProject4/.venv/bin/python`;
+there is no repository-local `.venv`. Select the same environment for notebooks.
+For a portable new setup, follow the environment instructions above (on macOS/Linux,
+use `.venv/bin/python` instead of `.venv\Scripts\python.exe`).
+
+Run `python -m src.predict` once after preparation. It trains the four required
+models: majority-class baseline, logistic regression, decision tree and random
+forest. All use only `src.prepare.FEATURES`. Flight number is categorical; numeric
+inputs are scaled, and unseen categories are handled. Preprocessing is fitted on
+January-August only. September-October validation F1 selects thresholds and the
+winner. The decision is saved before all four frozen models are assessed once
+on November-December. No validation refit or test-driven retuning is performed.
+
+`outputs/models/prediction_selection.json` records the frozen choice, feature
+roles, parameters, versions and input checksum. The selected complete pipeline is
+`outputs/models/flight_delay_pipeline.joblib`; load it with joblib, supply the
+approved columns, and compare class-1 probabilities against the saved threshold.
+Its `predict()` method uses the estimator's default threshold, so use
+`src.predict.positive_probability()` and the saved threshold for project decisions.
+No training is needed for future dashboard inference.
+
+Tables under `outputs/tables/prediction_*.csv` contain validation/test metrics,
+monthly sample sizes and class counts, confusion matrices, threshold search and
+row-level predictions. Undefined metrics are blank, not silently replaced by zero.
+`reports/prediction_findings.md` documents results and limitations.
+
+Run `notebooks/prediction.ipynb` to inspect saved results and refresh charts. It
+never retrains or repeats holdout inference. An existing selection file blocks
+accidental rerunning of the training command; preserve the original artifacts and
+holdout assessment. Generated artifacts remain Git-ignored. Tests use
+`python -m unittest discover -s tests -v` and include saved-pipeline inference once
+artifacts exist. The dashboard remains a later stage.
