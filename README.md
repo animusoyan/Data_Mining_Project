@@ -149,3 +149,45 @@ accidental rerunning of the training command; preserve the original artifacts an
 holdout assessment. Generated artifacts remain Git-ignored. Tests use
 `python -m unittest discover -s tests -v` and include saved-pipeline inference once
 artifacts exist. The dashboard remains a later stage.
+
+## Independent flight-delay historical replays
+
+From the project environment, with the cached NYC Flights 2013 snapshot and
+its manifest in `data/raw/`, run:
+
+```powershell
+.\.venv\Scripts\python.exe -B -m experiments.flight_delay_replay.run
+```
+
+On macOS or Linux, substitute `.venv/bin/python`. An existing output directory
+is protected. Use `--output outputs/experiments/flight_delay_replay_repeat`
+for a new run. The command writes the protocol, cutoff-selection results,
+September–October and November–December historical metrics, a report, and a
+timing chart under `outputs/experiments/flight_delay_replay/`. To regenerate
+only the report and chart from those tables, run
+`python -m experiments.flight_delay_replay.report outputs/experiments/flight_delay_replay`.
+
+The replays compare departure-delay alerts before the day and one hour before
+departure, accuracy at six departure checkpoints, and arrival delay at
+scheduled arrival. A positive label is a delay of at least 15 minutes.
+Training and cutoff selection use earlier months. Early flights are retained
+and missing labels are excluded independently for each target. The two
+assessment periods are historical comparisons.
+
+The replay assumes reports were available at their reconstructed event times.
+The departure schedule is localized to the origin and the arrival schedule to
+the destination. The arrival date uses the earliest destination-local
+occurrence after departure. Times in a spring-forward gap move to the first
+valid local time. An ambiguous scheduled time starts with the daylight
+occurrence, while observed times use the reported delay to disambiguate.
+The lookup in `experiments/flight_delay_replay/airport_time_zones.csv` comes
+from the companion airport data and includes Puerto Rico and the U.S. Virgin
+Islands for airports omitted there. [Airport metadata source](https://nycflights13.tidyverse.org/reference/airports.html)
+
+The separate compact schedule-only development grid runs with
+`python -B -m experiments.chronological_grid_search` after data preparation.
+It searches on the audit's first three folds and compares the frozen
+shortlist in September–October. Add `--resume` to reuse completed fits from
+a compatible run. For an archived or incompatible run, use
+`--output outputs/experiments/chronological_grid_search_sklearn` to start
+in a new directory.

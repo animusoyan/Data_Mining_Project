@@ -12,8 +12,6 @@ import pandas as pd
 import sklearn
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import ParameterGrid
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import FunctionTransformer
 from sklearn.tree import DecisionTreeClassifier
 from threadpoolctl import threadpool_limits
 
@@ -39,9 +37,6 @@ GRIDS = {
     'histogram_gradient_boosting': {'max_leaf_nodes': [15, 31], 'min_samples_leaf': [50, 100],
                                    'learning_rate': [0.05, 0.10], 'l2_regularization': [1, 10]},
 }
-CATBOOST_GRID = {'depth': [4, 6], 'learning_rate': [0.03, 0.10], 'iterations': [300, 600]}
-CATBOOST_DEFAULTS = {'task_type': 'CPU', 'thread_count': THREADS, 'random_seed': audit.SEED,
-                     'verbose': False, 'allow_writing_files': False, 'use_best_model': False}
 
 
 @dataclass(frozen=True)
@@ -51,12 +46,9 @@ class Candidate:
     settings: dict
 
 
-def candidate_grid(include_catboost):
-    grids = dict(GRIDS)
-    if include_catboost:
-        grids['catboost'] = CATBOOST_GRID
+def candidate_grid():
     fixed = audit.build('G').named_steps['model'].get_params()
-    for family, grid in grids.items():
+    for family, grid in GRIDS.items():
         for index, settings in enumerate(ParameterGrid(grid), start=1):
             is_fixed = family == 'histogram_gradient_boosting' and all(
                 fixed[key] == value for key, value in settings.items())
@@ -66,20 +58,9 @@ def candidate_grid(include_catboost):
     yield Candidate(BASELINE, 'majority', {})
 
 
-def native_categories(frame):
-    result = frame.copy()
-    for name in CATEGORICAL:
-        result[name] = result[name].astype(str)
-    return result
-
-
-def build(candidate, catboost_class=None):
+def build(candidate):
     if candidate.family == 'histogram_gradient_boosting':
         return audit.build('G').set_params(**{f'model__{k}': v for k, v in candidate.settings.items()})
-    if candidate.family == 'catboost':
-        estimator = catboost_class(cat_features=CATEGORICAL, **CATBOOST_DEFAULTS, **candidate.settings)
-        return Pipeline([('inputs', audit.ApprovedInput(COMPACT)),
-                         ('categories', FunctionTransformer(native_categories)), ('model', estimator)])
 
     pipeline = audit.build('F')
     if candidate.name == ORIGINAL:
@@ -96,26 +77,9 @@ def build(candidate, catboost_class=None):
     return pipeline.set_params(model=estimator)
 
 
-def catboost_support():
-    """Check import and a tiny CPU fit with the same mixed input and pipeline API."""
-    try:
-        from catboost import CatBoostClassifier, CatBoostError, __version__
-    except (ImportError, OSError, ValueError) as exc:
-        return None, f'Unavailable ({type(exc).__name__}: {exc})'
-
-    try:
-        sample = pd.DataFrame({name: list(range(8)) for name in COMPACT})
-        spec = Candidate('probe', 'catboost', {'depth': 4, 'iterations': 2, 'learning_rate': 0.1})
-        model = build(spec, CatBoostClassifier).fit(sample, [0, 1] * 4)
-        model.predict_proba(sample)
-    except (CatBoostError, ImportError, OSError, ValueError, RuntimeError) as exc:
-        return None, f'Unavailable ({type(exc).__name__}: {exc})'
-    return CatBoostClassifier, f'{__version__} (CPU, {THREADS} threads)'
-
-
-def fit_and_score(candidate, fold, periods, catboost_class):
+def fit_and_score(candidate, fold, periods):
     fit, tuning, assessment = periods
-    model = build(candidate, catboost_class)
+    model = build(candidate)
     start = time.monotonic()
     model.fit(fit[COMPACT], fit.delayed_15)
     fit_seconds = time.monotonic() - start
@@ -165,13 +129,22 @@ def write_json(path, value):
     path.write_text(json.dumps(value, indent=2, allow_nan=False) + '\n', encoding='utf-8')
 
 
-def checkpoint_score(directory, candidate, fold, periods, catboost_class):
+def checkpoint_score(directory, candidate, fold, periods):
     path = directory / f'{fold}_{candidate.name}.json'
     if path.exists():
         saved = json.loads(path.read_text(encoding='utf-8'))
-        return saved['scores'], pd.DataFrame(saved['curve'])
+        scores, curve = saved['scores'], saved['curve']
+        settings = json.dumps(candidate.settings, sort_keys=True)
+        if (not scores or not curve
+                or any(row.get('candidate') != candidate.name or row.get('fold') != fold
+                       for row in scores + curve)
+                or any(row.get('family') != candidate.family or row.get('settings') != settings
+                       for row in scores)):
+            raise ValueError(f'Checkpoint {path.name} does not match its fold and candidate. '
+                             'Use --output with a new directory.')
+        return scores, pd.DataFrame(curve)
     print(f'{fold}: {candidate.name} {candidate.settings}', flush=True)
-    rows, curve = fit_and_score(candidate, fold, periods, catboost_class)
+    rows, curve = fit_and_score(candidate, fold, periods)
     rows = [{key: None if pd.isna(value) else value for key, value in row.items()} for row in rows]
     pending = path.with_suffix(f'.{os.getpid()}.tmp')
     write_json(pending, {'scores': rows, 'curve': curve.to_dict('records')})
@@ -179,7 +152,7 @@ def checkpoint_score(directory, candidate, fold, periods, catboost_class):
     return rows, curve
 
 
-def write_report(out, ranking, shortlist, selection, comparison, differences, catboost_status):
+def write_report(out, ranking, shortlist, selection, comparison, differences):
     winner = ranking.iloc[0]
     fixed = ranking.loc[ranking.candidate.eq(FIXED)].iloc[0]
     periods = pd.concat([selection, comparison], ignore_index=True)
@@ -190,7 +163,7 @@ def write_report(out, ranking, shortlist, selection, comparison, differences, ca
         f'**Winner** `{winner.candidate}` with `{winner.settings}`. Its mean assessment F1 was '
         f'{winner.mean_f1:.4f}, compared with {fixed.mean_f1:.4f} for the fixed compact boosting '
         f'reference ({winner.mean_f1 - fixed.mean_f1:+.4f}).',
-        f'The grid scored {len(ranking)} candidates. CatBoost status is {catboost_status}. '
+        f'The grid scored {len(ranking)} scikit-learn candidates. '
         'Every model used the audit’s compact schedule features. The original logistic regression '
         'reference reuses the original estimator settings with compact preprocessing. The majority '
         'reference uses the audit grid and tie rule, which selects 0.500 for its constant negative prediction.',
@@ -215,29 +188,35 @@ def write_report(out, ranking, shortlist, selection, comparison, differences, ca
 def run(source, out, resume=False, selection_fold=None):
     out.mkdir(parents=True, exist_ok=resume)
     with threadpool_limits(limits=THREADS):
-        catboost_class, catboost_status = catboost_support()
-        print(f'CatBoost: {catboost_status}', flush=True)
-        specs = {candidate.name: candidate for candidate in candidate_grid(catboost_class is not None)}
+        specs = {candidate.name: candidate for candidate in candidate_grid()}
         protocol = {
             'source': str(source), 'python': platform.python_version(), 'scikit_learn': sklearn.__version__,
-            'pandas': pd.__version__, 'catboost': catboost_status, 'threads': THREADS,
+            'pandas': pd.__version__, 'threads': THREADS,
             'features': COMPACT, 'categorical': CATEGORICAL, 'folds': audit.FOLDS,
             'selection_folds': SELECTION_FOLDS, 'comparison_fold': COMPARISON_FOLD,
             'threshold_grid': audit.GRID.tolist(), 'threshold_tie': 'closest to 0.5, then higher',
             'rank': 'descending unweighted mean A–C assessment F1, then candidate ID',
             'shortlist': 'best grid setting per family plus all references',
             'candidates': {name: {'family': spec.family, 'grid_settings': spec.settings,
-                                  'parameters': build(spec, catboost_class).named_steps['model'].get_params()}
+                                  'parameters': build(spec).named_steps['model'].get_params()}
                            for name, spec in specs.items()},
         }
         protocol_path = out / 'protocol.json'
+        checkpoints = out / 'candidate_checkpoints'
+        saved_names = {path.name for path in checkpoints.glob('*.json')}
         if protocol_path.exists():
             previous = json.loads(protocol_path.read_text(encoding='utf-8'))
             if previous != json.loads(json.dumps(protocol)):
-                raise ValueError('The previous protocol and current configuration differ')
+                raise ValueError('Cannot resume an incompatible grid protocol. Use --output with a new directory.')
+        elif saved_names:
+            raise ValueError('Cannot resume checkpoints without a saved protocol. Use --output with a new directory.')
         else:
             write_json(protocol_path, protocol)
-        checkpoints = out / 'candidate_checkpoints'
+        expected_names = {f'{fold}_{name}.json' for fold in (*SELECTION_FOLDS, COMPARISON_FOLD) for name in specs}
+        unexpected_names = sorted(saved_names - expected_names)
+        if unexpected_names:
+            raise ValueError(f'Cannot resume unexpected candidate checkpoints: {", ".join(unexpected_names)}. '
+                             'Use --output with a new directory.')
         checkpoints.mkdir(exist_ok=True)
         data = audit.load_development(source)
         rows, curves = [], []
@@ -245,7 +224,7 @@ def run(source, out, resume=False, selection_fold=None):
         for fold in selection_folds:
             periods = audit.partitions(data, fold)
             for candidate in specs.values():
-                scores, curve = checkpoint_score(checkpoints, candidate, fold, periods, catboost_class)
+                scores, curve = checkpoint_score(checkpoints, candidate, fold, periods)
                 rows.extend(scores)
                 curves.append(curve)
         if selection_fold:
@@ -260,7 +239,7 @@ def run(source, out, resume=False, selection_fold=None):
         write_json(out / 'shortlist.json', [
             {'candidate': name, 'rank': int(rank), 'mean_f1': float(mean_f1),
              'family': specs[name].family, 'settings': specs[name].settings,
-             'parameters': build(specs[name], catboost_class).named_steps['model'].get_params()}
+             'parameters': build(specs[name]).named_steps['model'].get_params()}
             for name, rank, mean_f1 in shortlist[['candidate', 'rank', 'mean_f1']].itertuples(index=False, name=None)
         ])
 
@@ -269,7 +248,7 @@ def run(source, out, resume=False, selection_fold=None):
         rows, curves = [], []
         for entry in frozen:
             candidate = Candidate(entry['candidate'], entry['family'], entry['settings'])
-            scores, curve = checkpoint_score(checkpoints, candidate, COMPARISON_FOLD, periods, catboost_class)
+            scores, curve = checkpoint_score(checkpoints, candidate, COMPARISON_FOLD, periods)
             rows.extend(scores)
             curves.append(curve)
         comparison = pd.DataFrame(rows)
@@ -278,7 +257,7 @@ def run(source, out, resume=False, selection_fold=None):
 
     differences = winner_differences(pd.concat([selection, comparison]), ranking.iloc[0].candidate)
     differences.to_csv(out / 'winner_vs_fixed_boosting.csv', index=False)
-    write_report(out, ranking, shortlist, selection, comparison, differences, catboost_status)
+    write_report(out, ranking, shortlist, selection, comparison, differences)
     print(f'Winner: {ranking.iloc[0].candidate}. Results: {out}', flush=True)
 
 
