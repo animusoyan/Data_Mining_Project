@@ -1,0 +1,2721 @@
+{
+  "period_format": "Inclusive first and last calendar month in YYYY-MM",
+  "later_assessment_context": "Exploratory historical comparisons on previously examined periods",
+  "grid_selection": {
+    "source": {
+      "file": "outputs/experiments/chronological_grid_search/ranking.csv",
+      "row": {
+        "rank": 1,
+        "candidate": "decision_tree_02"
+      }
+    },
+    "mean_f1": 0.5041007968339813,
+    "folds": [
+      "a",
+      "b",
+      "c"
+    ]
+  },
+  "results": [
+    {
+      "group": "original_historical",
+      "role": "frozen_model_selection",
+      "model": "logistic_regression",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "Pre-departure schedule only, no fixed lead time",
+      "fit_period": [
+        "2013-01",
+        "2013-08"
+      ],
+      "threshold_selection_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 55775,
+      "threshold": 0.325,
+      "metrics": {
+        "accuracy": 0.6396952039444196,
+        "precision": 0.23302160886144907,
+        "recall": 0.6159107271418287,
+        "f1": 0.3381200184441078,
+        "roc_auc": 0.675438622316256,
+        "average_precision": 0.24626603723477747
+      },
+      "confusion_counts": {
+        "tn": 30546,
+        "fp": 16895,
+        "fn": 3201,
+        "tp": 5133
+      },
+      "sources": [
+        {
+          "file": "outputs/tables/prediction_comparison.csv",
+          "row": {
+            "model": "logistic_regression",
+            "split": "validation"
+          }
+        },
+        {
+          "file": "outputs/experiments/independent_audit/stage1_audit_001/historical_recomputed.csv",
+          "row": {
+            "model": "logistic_regression",
+            "split": "validation"
+          },
+          "field": "average_precision"
+        }
+      ]
+    },
+    {
+      "group": "original_historical",
+      "role": "original_frozen_assessment",
+      "model": "logistic_regression",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "Pre-departure schedule only, no fixed lead time",
+      "fit_period": [
+        "2013-01",
+        "2013-08"
+      ],
+      "threshold_selection_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 54145,
+      "threshold": 0.325,
+      "metrics": {
+        "accuracy": 0.6097331240188383,
+        "precision": 0.3052675585284281,
+        "recall": 0.6180279305966991,
+        "f1": 0.4086749685182594,
+        "roc_auc": 0.6533220942318976,
+        "average_precision": 0.3213364018714906
+      },
+      "confusion_counts": {
+        "tn": 25712,
+        "fp": 16618,
+        "fn": 4513,
+        "tp": 7302
+      },
+      "sources": [
+        {
+          "file": "outputs/tables/prediction_comparison.csv",
+          "row": {
+            "model": "logistic_regression",
+            "split": "test"
+          }
+        },
+        {
+          "file": "outputs/experiments/independent_audit/stage1_audit_001/historical_recomputed.csv",
+          "row": {
+            "model": "logistic_regression",
+            "split": "test"
+          },
+          "field": "average_precision"
+        }
+      ]
+    },
+    {
+      "group": "schedule_development",
+      "role": "improvement_internal_champion_validation_reused_for_cutoff",
+      "model": "forest_interactions_d14",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "Pre-departure schedule only, no fixed lead time",
+      "fit_period": [
+        "2013-01",
+        "2013-08"
+      ],
+      "threshold_selection_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 55775,
+      "threshold": 0.275,
+      "metrics": {
+        "accuracy": 0.6541640519946212,
+        "precision": 0.23737833820779594,
+        "recall": 0.5940724742020639,
+        "f1": 0.3392141413449351,
+        "roc_auc": 0.6794293837661175,
+        "average_precision": 0.25107610799496405
+      },
+      "confusion_counts": {
+        "tn": 31535,
+        "fp": 15906,
+        "fn": 3383,
+        "tp": 4951
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/modeling_study/validation_metrics.csv",
+          "row": {
+            "candidate": "forest_interactions_d14"
+          }
+        }
+      ]
+    },
+    {
+      "group": "schedule_development",
+      "role": "audit_compact_comparison",
+      "model": "F",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "Pre-departure schedule only, no fixed lead time",
+      "fit_period": [
+        "2013-01",
+        "2013-07"
+      ],
+      "threshold_selection_period": [
+        "2013-08",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 55775,
+      "threshold": 0.225,
+      "metrics": {
+        "accuracy": 0.5799013895114299,
+        "precision": 0.22152949422658355,
+        "recall": 0.720542356611471,
+        "f1": 0.3388730566293276,
+        "roc_auc": 0.6849589719633415,
+        "average_precision": 0.2563981153567985
+      },
+      "confusion_counts": {
+        "tn": 26339,
+        "fp": 21102,
+        "fn": 2329,
+        "tp": 6005
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/independent_audit/stage1_audit_001/fold_metrics.csv",
+          "row": {
+            "candidate": "F",
+            "fold": "d",
+            "grid": "primary"
+          }
+        }
+      ]
+    },
+    {
+      "group": "schedule_development",
+      "role": "audit_compact_comparison",
+      "model": "G",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "Pre-departure schedule only, no fixed lead time",
+      "fit_period": [
+        "2013-01",
+        "2013-07"
+      ],
+      "threshold_selection_period": [
+        "2013-08",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 55775,
+      "threshold": 0.25,
+      "metrics": {
+        "accuracy": 0.6092693859255939,
+        "precision": 0.2292932137254113,
+        "recall": 0.6839452843772498,
+        "f1": 0.34344590726960506,
+        "roc_auc": 0.6914799548904282,
+        "average_precision": 0.26972633773367066
+      },
+      "confusion_counts": {
+        "tn": 28282,
+        "fp": 19159,
+        "fn": 2634,
+        "tp": 5700
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/independent_audit/stage1_audit_001/fold_metrics.csv",
+          "row": {
+            "candidate": "G",
+            "fold": "d",
+            "grid": "primary"
+          }
+        }
+      ]
+    },
+    {
+      "group": "schedule_development",
+      "role": "grid_development_rank_1",
+      "model": "decision_tree_02",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "Pre-departure schedule only, no fixed lead time",
+      "fit_period": [
+        "2013-01",
+        "2013-03"
+      ],
+      "threshold_selection_period": [
+        "2013-04",
+        "2013-04"
+      ],
+      "assessment_period": [
+        "2013-05",
+        "2013-05"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 28233,
+      "threshold": 0.225,
+      "metrics": {
+        "accuracy": 0.6316013176070556,
+        "precision": 0.3556273062730627,
+        "recall": 0.6961625282167043,
+        "f1": 0.4707678217066097,
+        "roc_auc": 0.6927817100964461,
+        "average_precision": 0.38969475200438225
+      },
+      "confusion_counts": {
+        "tn": 13206,
+        "fp": 8382,
+        "fn": 2019,
+        "tp": 4626
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/chronological_grid_search/selection_fold_metrics.csv",
+          "row": {
+            "candidate": "decision_tree_02",
+            "fold": "a",
+            "period": "combined"
+          }
+        }
+      ]
+    },
+    {
+      "group": "schedule_development",
+      "role": "grid_development_rank_1",
+      "model": "decision_tree_02",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "Pre-departure schedule only, no fixed lead time",
+      "fit_period": [
+        "2013-01",
+        "2013-04"
+      ],
+      "threshold_selection_period": [
+        "2013-05",
+        "2013-05"
+      ],
+      "assessment_period": [
+        "2013-06",
+        "2013-06"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 27234,
+      "threshold": 0.15,
+      "metrics": {
+        "accuracy": 0.598443122567379,
+        "precision": 0.40837203464290195,
+        "recall": 0.811751497005988,
+        "f1": 0.5433820459290188,
+        "roc_auc": 0.7015749403212516,
+        "average_precision": 0.45490177241015084
+      },
+      "confusion_counts": {
+        "tn": 9791,
+        "fp": 9427,
+        "fn": 1509,
+        "tp": 6507
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/chronological_grid_search/selection_fold_metrics.csv",
+          "row": {
+            "candidate": "decision_tree_02",
+            "fold": "b",
+            "period": "combined"
+          }
+        }
+      ]
+    },
+    {
+      "group": "schedule_development",
+      "role": "grid_development_rank_1",
+      "model": "decision_tree_02",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "Pre-departure schedule only, no fixed lead time",
+      "fit_period": [
+        "2013-01",
+        "2013-05"
+      ],
+      "threshold_selection_period": [
+        "2013-06",
+        "2013-06"
+      ],
+      "assessment_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 57326,
+      "threshold": 0.15,
+      "metrics": {
+        "accuracy": 0.5664271011408436,
+        "precision": 0.35969209237228833,
+        "recall": 0.8099271223163286,
+        "f1": 0.49815252286631534,
+        "roc_auc": 0.6889533476499754,
+        "average_precision": 0.40279880363236825
+      },
+      "confusion_counts": {
+        "tn": 20135,
+        "fp": 21960,
+        "fn": 2895,
+        "tp": 12336
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/chronological_grid_search/selection_fold_metrics.csv",
+          "row": {
+            "candidate": "decision_tree_02",
+            "fold": "c",
+            "period": "combined"
+          }
+        }
+      ]
+    },
+    {
+      "group": "schedule_development",
+      "role": "grid_development_rank_1",
+      "model": "decision_tree_02",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "Pre-departure schedule only, no fixed lead time",
+      "fit_period": [
+        "2013-01",
+        "2013-07"
+      ],
+      "threshold_selection_period": [
+        "2013-08",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 55775,
+      "threshold": 0.225,
+      "metrics": {
+        "accuracy": 0.5423397579560735,
+        "precision": 0.21239293361884368,
+        "recall": 0.761699064074874,
+        "f1": 0.33216472188791796,
+        "roc_auc": 0.6767925124452133,
+        "average_precision": 0.24237856402395647
+      },
+      "confusion_counts": {
+        "tn": 23901,
+        "fp": 23540,
+        "fn": 1986,
+        "tp": 6348
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/chronological_grid_search/september_october_metrics.csv",
+          "row": {
+            "candidate": "decision_tree_02",
+            "fold": "d",
+            "period": "combined"
+          }
+        }
+      ]
+    },
+    {
+      "group": "schedule_development",
+      "role": "predeclared_reference",
+      "model": "fixed_compact_boosting",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "Pre-departure schedule only, no fixed lead time",
+      "fit_period": [
+        "2013-01",
+        "2013-07"
+      ],
+      "threshold_selection_period": [
+        "2013-08",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 55775,
+      "threshold": 0.25,
+      "metrics": {
+        "accuracy": 0.6092693859255939,
+        "precision": 0.2292932137254113,
+        "recall": 0.6839452843772498,
+        "f1": 0.34344590726960506,
+        "roc_auc": 0.6914799548904282,
+        "average_precision": 0.26972633773367066
+      },
+      "confusion_counts": {
+        "tn": 28282,
+        "fp": 19159,
+        "fn": 2634,
+        "tp": 5700
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/chronological_grid_search/september_october_metrics.csv",
+          "row": {
+            "candidate": "fixed_compact_boosting",
+            "fold": "d",
+            "period": "combined"
+          }
+        }
+      ]
+    },
+    {
+      "group": "schedule_development",
+      "role": "schedule_candidate_selected_by_august_f1",
+      "model": "schedule_hgb",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "Start of scheduled departure day",
+      "fit_period": [
+        "2013-01",
+        "2013-07"
+      ],
+      "threshold_selection_period": [
+        "2013-08",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label (also the unresolved population in this replay)",
+      "n": 55775,
+      "threshold": 0.25,
+      "metrics": {
+        "accuracy": 0.6084267144778126,
+        "precision": 0.22901284109149278,
+        "recall": 0.6847852171826254,
+        "f1": 0.34323690383111805,
+        "roc_auc": 0.6912594531485983,
+        "average_precision": 0.2696389365630377
+      },
+      "confusion_counts": {
+        "tn": 28228,
+        "fp": 19213,
+        "fn": 2627,
+        "tp": 5707
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "before_day",
+            "checkpoint": "Start of scheduled departure day",
+            "id": "schedule_hgb",
+            "period": "September–October",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "before_day",
+          "checkpoint": "Start of scheduled departure day",
+          "id": "schedule_hgb"
+        }
+      }
+    },
+    {
+      "group": "schedule_development",
+      "role": "schedule_candidate_selected_by_august_f1",
+      "model": "schedule_hgb",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "Start of scheduled departure day",
+      "fit_period": [
+        "2013-01",
+        "2013-07"
+      ],
+      "threshold_selection_period": [
+        "2013-08",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "all flights with an observed target label (also the unresolved population in this replay)",
+      "n": 54145,
+      "threshold": 0.25,
+      "metrics": {
+        "accuracy": 0.6139440391541232,
+        "precision": 0.31042970379641216,
+        "recall": 0.629792636479052,
+        "f1": 0.41587257230683244,
+        "roc_auc": 0.6653095216743603,
+        "average_precision": 0.33516008380519335
+      },
+      "confusion_counts": {
+        "tn": 25801,
+        "fp": 16529,
+        "fn": 4374,
+        "tp": 7441
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "before_day",
+            "checkpoint": "Start of scheduled departure day",
+            "id": "schedule_hgb",
+            "period": "November–December",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "before_day",
+          "checkpoint": "Start of scheduled departure day",
+          "id": "schedule_hgb"
+        }
+      }
+    },
+    {
+      "group": "operational_one_hour",
+      "role": "schedule_candidate_selected_by_august_f1",
+      "model": "schedule_hgb",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "60 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-07"
+      ],
+      "threshold_selection_period": [
+        "2013-08",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label (also the unresolved population in this replay)",
+      "n": 55775,
+      "threshold": 0.25,
+      "metrics": {
+        "accuracy": 0.6092693859255939,
+        "precision": 0.2292932137254113,
+        "recall": 0.6839452843772498,
+        "f1": 0.34344590726960506,
+        "roc_auc": 0.6914799548904282,
+        "average_precision": 0.26972633773367066
+      },
+      "confusion_counts": {
+        "tn": 28282,
+        "fp": 19159,
+        "fn": 2634,
+        "tp": 5700
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_f1",
+            "checkpoint": "60 minutes before departure",
+            "id": "schedule_hgb",
+            "period": "September–October",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_f1",
+          "checkpoint": "60 minutes before departure",
+          "id": "schedule_hgb"
+        }
+      }
+    },
+    {
+      "group": "operational_one_hour",
+      "role": "schedule_candidate_selected_by_august_f1",
+      "model": "schedule_hgb",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "60 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-07"
+      ],
+      "threshold_selection_period": [
+        "2013-08",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "all flights with an observed target label (also the unresolved population in this replay)",
+      "n": 54145,
+      "threshold": 0.25,
+      "metrics": {
+        "accuracy": 0.6150521747160402,
+        "precision": 0.31116131191432395,
+        "recall": 0.6295387219636056,
+        "f1": 0.416473025560626,
+        "roc_auc": 0.6655589153557298,
+        "average_precision": 0.33508634152575134
+      },
+      "confusion_counts": {
+        "tn": 25864,
+        "fp": 16466,
+        "fn": 4377,
+        "tp": 7438
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_f1",
+            "checkpoint": "60 minutes before departure",
+            "id": "schedule_hgb",
+            "period": "November–December",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_f1",
+          "checkpoint": "60 minutes before departure",
+          "id": "schedule_hgb"
+        }
+      }
+    },
+    {
+      "group": "operational_one_hour",
+      "role": "selected_before_assessment",
+      "model": "grid_16",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "60 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-07"
+      ],
+      "threshold_selection_period": [
+        "2013-08",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label (also the unresolved population in this replay)",
+      "n": 55775,
+      "threshold": 0.275,
+      "metrics": {
+        "accuracy": 0.8529986553115195,
+        "precision": 0.5118317265556529,
+        "recall": 0.3503719702423806,
+        "f1": 0.4159840444476102,
+        "roc_auc": 0.7427369474782988,
+        "average_precision": 0.4485443507436573
+      },
+      "confusion_counts": {
+        "tn": 44656,
+        "fp": 2785,
+        "fn": 5414,
+        "tp": 2920
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_f1",
+            "checkpoint": "60 minutes before departure",
+            "id": "grid_16",
+            "period": "September–October",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_f1",
+          "checkpoint": "60 minutes before departure",
+          "id": "grid_16"
+        }
+      }
+    },
+    {
+      "group": "operational_one_hour",
+      "role": "selected_before_assessment",
+      "model": "grid_16",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "60 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-07"
+      ],
+      "threshold_selection_period": [
+        "2013-08",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "all flights with an observed target label (also the unresolved population in this replay)",
+      "n": 54145,
+      "threshold": 0.275,
+      "metrics": {
+        "accuracy": 0.7647243512789731,
+        "precision": 0.4658031088082902,
+        "recall": 0.5326280152348709,
+        "f1": 0.4969792694965449,
+        "roc_auc": 0.7570698046973685,
+        "average_precision": 0.5123850452009198
+      },
+      "confusion_counts": {
+        "tn": 35113,
+        "fp": 7217,
+        "fn": 5522,
+        "tp": 6293
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_f1",
+            "checkpoint": "60 minutes before departure",
+            "id": "grid_16",
+            "period": "November–December",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_f1",
+          "checkpoint": "60 minutes before departure",
+          "id": "grid_16"
+        }
+      }
+    },
+    {
+      "group": "operational_one_hour",
+      "role": "highest_observed_historical_f1_among_carried_forward_candidates",
+      "model": "full_lr",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "60 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-07"
+      ],
+      "threshold_selection_period": [
+        "2013-08",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label (also the unresolved population in this replay)",
+      "n": 55775,
+      "threshold": 0.25,
+      "metrics": {
+        "accuracy": 0.8465979381443299,
+        "precision": 0.48288093769278223,
+        "recall": 0.37568994480441564,
+        "f1": 0.4225941422594142,
+        "roc_auc": 0.7400008888814833,
+        "average_precision": 0.4458755396549988
+      },
+      "confusion_counts": {
+        "tn": 44088,
+        "fp": 3353,
+        "fn": 5203,
+        "tp": 3131
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_f1",
+            "checkpoint": "60 minutes before departure",
+            "id": "full_lr",
+            "period": "September–October",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_f1",
+          "checkpoint": "60 minutes before departure",
+          "id": "full_lr"
+        }
+      }
+    },
+    {
+      "group": "operational_one_hour",
+      "role": "highest_observed_historical_f1_among_carried_forward_candidates",
+      "model": "full_lr",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "60 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-07"
+      ],
+      "threshold_selection_period": [
+        "2013-08",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "all flights with an observed target label (also the unresolved population in this replay)",
+      "n": 54145,
+      "threshold": 0.25,
+      "metrics": {
+        "accuracy": 0.7597192723243144,
+        "precision": 0.4584694515882394,
+        "recall": 0.5582733812949641,
+        "f1": 0.5034730173269216,
+        "roc_auc": 0.7553888612126933,
+        "average_precision": 0.5096853597958563
+      },
+      "confusion_counts": {
+        "tn": 34539,
+        "fp": 7791,
+        "fn": 5219,
+        "tp": 6596
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_f1",
+            "checkpoint": "60 minutes before departure",
+            "id": "full_lr",
+            "period": "November–December",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_f1",
+          "checkpoint": "60 minutes before departure",
+          "id": "full_lr"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_average",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "60 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 55775,
+      "threshold": 0.505,
+      "metrics": {
+        "accuracy": 0.8692066337965038,
+        "precision": 0.7690315898498188,
+        "recall": 0.17818574514038876,
+        "f1": 0.2893326838772528,
+        "roc_auc": 0.7425453045394614,
+        "average_precision": 0.44957136416023413
+      },
+      "confusion_counts": {
+        "tn": 46995,
+        "fp": 446,
+        "fn": 6849,
+        "tp": 1485
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "60 minutes before departure",
+            "id": "prior_service_average",
+            "period": "September–October",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "60 minutes before departure",
+          "id": "prior_service_average"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_average",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "60 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "labeled flights with no reported departure under 15 minutes late by the checkpoint",
+      "n": 55775,
+      "threshold": 0.505,
+      "metrics": {
+        "accuracy": 0.8692066337965038,
+        "precision": 0.7690315898498188,
+        "recall": 0.17818574514038876,
+        "f1": 0.2893326838772528,
+        "roc_auc": 0.7425453045394614,
+        "average_precision": 0.44957136416023413
+      },
+      "confusion_counts": {
+        "tn": 46995,
+        "fp": 446,
+        "fn": 6849,
+        "tp": 1485
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "60 minutes before departure",
+            "id": "prior_service_average",
+            "period": "September–October",
+            "subset": "unresolved"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "60 minutes before departure",
+          "id": "prior_service_average"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_average",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "60 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 54145,
+      "threshold": 0.505,
+      "metrics": {
+        "accuracy": 0.8078862314156432,
+        "precision": 0.6545613651279808,
+        "recall": 0.25323741007194245,
+        "f1": 0.36518979616746,
+        "roc_auc": 0.7584839809813049,
+        "average_precision": 0.5138117361104644
+      },
+      "confusion_counts": {
+        "tn": 40751,
+        "fp": 1579,
+        "fn": 8823,
+        "tp": 2992
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "60 minutes before departure",
+            "id": "prior_service_average",
+            "period": "November–December",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "60 minutes before departure",
+          "id": "prior_service_average"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_average",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "60 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "labeled flights with no reported departure under 15 minutes late by the checkpoint",
+      "n": 54145,
+      "threshold": 0.505,
+      "metrics": {
+        "accuracy": 0.8078862314156432,
+        "precision": 0.6545613651279808,
+        "recall": 0.25323741007194245,
+        "f1": 0.36518979616746,
+        "roc_auc": 0.7584839809813049,
+        "average_precision": 0.5138117361104644
+      },
+      "confusion_counts": {
+        "tn": 40751,
+        "fp": 1579,
+        "fn": 8823,
+        "tp": 2992
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "60 minutes before departure",
+            "id": "prior_service_average",
+            "period": "November–December",
+            "subset": "unresolved"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "60 minutes before departure",
+          "id": "prior_service_average"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_deeper_hgb",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "15 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 55775,
+      "threshold": 0.495,
+      "metrics": {
+        "accuracy": 0.871931869116988,
+        "precision": 0.7550321199143469,
+        "recall": 0.2115430765538757,
+        "f1": 0.3304902052675977,
+        "roc_auc": 0.7512815584858394,
+        "average_precision": 0.46454000390750866
+      },
+      "confusion_counts": {
+        "tn": 46869,
+        "fp": 572,
+        "fn": 6571,
+        "tp": 1763
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "15 minutes before departure",
+            "id": "prior_service_deeper_hgb",
+            "period": "September–October",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "15 minutes before departure",
+          "id": "prior_service_deeper_hgb"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_deeper_hgb",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "15 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "labeled flights with no reported departure under 15 minutes late by the checkpoint",
+      "n": 55544,
+      "threshold": 0.495,
+      "metrics": {
+        "accuracy": 0.8713992510442172,
+        "precision": 0.7550321199143469,
+        "recall": 0.2115430765538757,
+        "f1": 0.3304902052675977,
+        "roc_auc": 0.7500645714070474,
+        "average_precision": 0.46454000390750866
+      },
+      "confusion_counts": {
+        "tn": 46638,
+        "fp": 572,
+        "fn": 6571,
+        "tp": 1763
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "15 minutes before departure",
+            "id": "prior_service_deeper_hgb",
+            "period": "September–October",
+            "subset": "unresolved"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "15 minutes before departure",
+          "id": "prior_service_deeper_hgb"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_deeper_hgb",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "15 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 54145,
+      "threshold": 0.495,
+      "metrics": {
+        "accuracy": 0.8098808754270939,
+        "precision": 0.6443347883848928,
+        "recall": 0.2873465933135844,
+        "f1": 0.3974479044720206,
+        "roc_auc": 0.7650459366529373,
+        "average_precision": 0.5250040136126078
+      },
+      "confusion_counts": {
+        "tn": 40456,
+        "fp": 1874,
+        "fn": 8420,
+        "tp": 3395
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "15 minutes before departure",
+            "id": "prior_service_deeper_hgb",
+            "period": "November–December",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "15 minutes before departure",
+          "id": "prior_service_deeper_hgb"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_deeper_hgb",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "15 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "labeled flights with no reported departure under 15 minutes late by the checkpoint",
+      "n": 53981,
+      "threshold": 0.495,
+      "metrics": {
+        "accuracy": 0.8093032733739649,
+        "precision": 0.6443347883848928,
+        "recall": 0.2873465933135844,
+        "f1": 0.3974479044720206,
+        "roc_auc": 0.7641321087729174,
+        "average_precision": 0.5250040136126078
+      },
+      "confusion_counts": {
+        "tn": 40292,
+        "fp": 1874,
+        "fn": 8420,
+        "tp": 3395
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "15 minutes before departure",
+            "id": "prior_service_deeper_hgb",
+            "period": "November–December",
+            "subset": "unresolved"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "15 minutes before departure",
+          "id": "prior_service_deeper_hgb"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_average",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "5 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 55775,
+      "threshold": 0.525,
+      "metrics": {
+        "accuracy": 0.875338413267593,
+        "precision": 0.7749900438072481,
+        "recall": 0.23350131989440845,
+        "f1": 0.35887505763024435,
+        "roc_auc": 0.8528142444542549,
+        "average_precision": 0.5461714532573677
+      },
+      "confusion_counts": {
+        "tn": 46876,
+        "fp": 565,
+        "fn": 6388,
+        "tp": 1946
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "5 minutes before departure",
+            "id": "prior_service_average",
+            "period": "September–October",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "5 minutes before departure",
+          "id": "prior_service_average"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_average",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "5 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "labeled flights with no reported departure under 15 minutes late by the checkpoint",
+      "n": 35023,
+      "threshold": 0.525,
+      "metrics": {
+        "accuracy": 0.8014733175341918,
+        "precision": 0.7749900438072481,
+        "recall": 0.23350131989440845,
+        "f1": 0.35887505763024435,
+        "roc_auc": 0.7383701364290272,
+        "average_precision": 0.5461714532573677
+      },
+      "confusion_counts": {
+        "tn": 26124,
+        "fp": 565,
+        "fn": 6388,
+        "tp": 1946
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "5 minutes before departure",
+            "id": "prior_service_average",
+            "period": "September–October",
+            "subset": "unresolved"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "5 minutes before departure",
+          "id": "prior_service_average"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_average",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "5 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 54145,
+      "threshold": 0.525,
+      "metrics": {
+        "accuracy": 0.8180072028811525,
+        "precision": 0.6785649244217811,
+        "recall": 0.3153618281845112,
+        "f1": 0.43060210331676874,
+        "roc_auc": 0.8336886996843513,
+        "average_precision": 0.5855060949412679
+      },
+      "confusion_counts": {
+        "tn": 40565,
+        "fp": 1765,
+        "fn": 8089,
+        "tp": 3726
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "5 minutes before departure",
+            "id": "prior_service_average",
+            "period": "November–December",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "5 minutes before departure",
+          "id": "prior_service_average"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_average",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "5 minutes before departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "labeled flights with no reported departure under 15 minutes late by the checkpoint",
+      "n": 39178,
+      "threshold": 0.525,
+      "metrics": {
+        "accuracy": 0.7484812905201899,
+        "precision": 0.6785649244217811,
+        "recall": 0.3153618281845112,
+        "f1": 0.43060210331676874,
+        "roc_auc": 0.742719828148909,
+        "average_precision": 0.5855060949412679
+      },
+      "confusion_counts": {
+        "tn": 25598,
+        "fp": 1765,
+        "fn": 8089,
+        "tp": 3726
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "5 minutes before departure",
+            "id": "prior_service_average",
+            "period": "November–December",
+            "subset": "unresolved"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "5 minutes before departure",
+          "id": "prior_service_average"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_average",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "Scheduled departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 55775,
+      "threshold": 0.5,
+      "metrics": {
+        "accuracy": 0.8948453608247423,
+        "precision": 0.6617743415017691,
+        "recall": 0.6059515238780897,
+        "f1": 0.6326338866269966,
+        "roc_auc": 0.9484415935285704,
+        "average_precision": 0.7220658314708891
+      },
+      "confusion_counts": {
+        "tn": 44860,
+        "fp": 2581,
+        "fn": 3284,
+        "tp": 5050
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "Scheduled departure",
+            "id": "prior_service_average",
+            "period": "September–October",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "Scheduled departure",
+          "id": "prior_service_average"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_average",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "Scheduled departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "labeled flights with no reported departure under 15 minutes late by the checkpoint",
+      "n": 16537,
+      "threshold": 0.5,
+      "metrics": {
+        "accuracy": 0.6453407510431154,
+        "precision": 0.6617743415017691,
+        "recall": 0.6059515238780897,
+        "f1": 0.6326338866269966,
+        "roc_auc": 0.7018185588917363,
+        "average_precision": 0.7220658314708892
+      },
+      "confusion_counts": {
+        "tn": 5622,
+        "fp": 2581,
+        "fn": 3284,
+        "tp": 5050
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "Scheduled departure",
+            "id": "prior_service_average",
+            "period": "September–October",
+            "subset": "unresolved"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "Scheduled departure",
+          "id": "prior_service_average"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_average",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "Scheduled departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 54145,
+      "threshold": 0.5,
+      "metrics": {
+        "accuracy": 0.8542617046818728,
+        "precision": 0.6561604584527221,
+        "recall": 0.6977570884468896,
+        "f1": 0.6763197834201566,
+        "roc_auc": 0.926926723597984,
+        "average_precision": 0.7300808212396219
+      },
+      "confusion_counts": {
+        "tn": 38010,
+        "fp": 4320,
+        "fn": 3571,
+        "tp": 8244
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "Scheduled departure",
+            "id": "prior_service_average",
+            "period": "November–December",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "Scheduled departure",
+          "id": "prior_service_average"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_average",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "Scheduled departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "labeled flights with no reported departure under 15 minutes late by the checkpoint",
+      "n": 21789,
+      "threshold": 0.5,
+      "metrics": {
+        "accuracy": 0.637844784065354,
+        "precision": 0.6561604584527221,
+        "recall": 0.6977570884468896,
+        "f1": 0.6763197834201566,
+        "roc_auc": 0.6898744946764254,
+        "average_precision": 0.7300808212396219
+      },
+      "confusion_counts": {
+        "tn": 5654,
+        "fp": 4320,
+        "fn": 3571,
+        "tp": 8244
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "Scheduled departure",
+            "id": "prior_service_average",
+            "period": "November–December",
+            "subset": "unresolved"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "Scheduled departure",
+          "id": "prior_service_average"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "waiting_shallow_hgb",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "5 minutes after scheduled departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 55775,
+      "threshold": 0.405,
+      "metrics": {
+        "accuracy": 0.9318691169878978,
+        "precision": 0.6869844935664797,
+        "recall": 0.9994000479961603,
+        "f1": 0.8142535927265617,
+        "roc_auc": 0.9725571234459756,
+        "average_precision": 0.8154128565407699
+      },
+      "confusion_counts": {
+        "tn": 43646,
+        "fp": 3795,
+        "fn": 5,
+        "tp": 8329
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "5 minutes after scheduled departure",
+            "id": "waiting_shallow_hgb",
+            "period": "September–October",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "5 minutes after scheduled departure",
+          "id": "waiting_shallow_hgb"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "waiting_shallow_hgb",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "5 minutes after scheduled departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "labeled flights with no reported departure under 15 minutes late by the checkpoint",
+      "n": 12135,
+      "threshold": 0.405,
+      "metrics": {
+        "accuracy": 0.6868562010712814,
+        "precision": 0.6869844935664797,
+        "recall": 0.9994000479961603,
+        "f1": 0.8142535927265617,
+        "roc_auc": 0.6574802666141879,
+        "average_precision": 0.8154128565407699
+      },
+      "confusion_counts": {
+        "tn": 6,
+        "fp": 3795,
+        "fn": 5,
+        "tp": 8329
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "5 minutes after scheduled departure",
+            "id": "waiting_shallow_hgb",
+            "period": "September–October",
+            "subset": "unresolved"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "5 minutes after scheduled departure",
+          "id": "waiting_shallow_hgb"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "waiting_shallow_hgb",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "5 minutes after scheduled departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 54145,
+      "threshold": 0.405,
+      "metrics": {
+        "accuracy": 0.9108504940437714,
+        "precision": 0.7100517013346158,
+        "recall": 0.9996614473127381,
+        "f1": 0.8303279552884109,
+        "roc_auc": 0.9592860061390167,
+        "average_precision": 0.818471945420268
+      },
+      "confusion_counts": {
+        "tn": 37507,
+        "fp": 4823,
+        "fn": 4,
+        "tp": 11811
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "5 minutes after scheduled departure",
+            "id": "waiting_shallow_hgb",
+            "period": "November–December",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "5 minutes after scheduled departure",
+          "id": "waiting_shallow_hgb"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "waiting_shallow_hgb",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "5 minutes after scheduled departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "labeled flights with no reported departure under 15 minutes late by the checkpoint",
+      "n": 16643,
+      "threshold": 0.405,
+      "metrics": {
+        "accuracy": 0.7099681547797873,
+        "precision": 0.7100517013346158,
+        "recall": 0.9996614473127381,
+        "f1": 0.8303279552884109,
+        "roc_auc": 0.6430357580498299,
+        "average_precision": 0.818471945420268
+      },
+      "confusion_counts": {
+        "tn": 5,
+        "fp": 4823,
+        "fn": 4,
+        "tp": 11811
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "5 minutes after scheduled departure",
+            "id": "waiting_shallow_hgb",
+            "period": "November–December",
+            "subset": "unresolved"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "5 minutes after scheduled departure",
+          "id": "waiting_shallow_hgb"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_lr",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "10 minutes after scheduled departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 55775,
+      "threshold": 0.59,
+      "metrics": {
+        "accuracy": 0.9747198565665621,
+        "precision": 0.8552955665024631,
+        "recall": 1.0,
+        "f1": 0.922004646531696,
+        "roc_auc": 0.989359162432453,
+        "average_precision": 0.9165865944570756
+      },
+      "confusion_counts": {
+        "tn": 46031,
+        "fp": 1410,
+        "fn": 0,
+        "tp": 8334
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "10 minutes after scheduled departure",
+            "id": "prior_service_lr",
+            "period": "September–October",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "10 minutes after scheduled departure",
+          "id": "prior_service_lr"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_lr",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "10 minutes after scheduled departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "labeled flights with no reported departure under 15 minutes late by the checkpoint",
+      "n": 9744,
+      "threshold": 0.59,
+      "metrics": {
+        "accuracy": 0.8552955665024631,
+        "precision": 0.8552955665024631,
+        "recall": 1.0,
+        "f1": 0.922004646531696,
+        "roc_auc": 0.6419773226652506,
+        "average_precision": 0.9165865944570756
+      },
+      "confusion_counts": {
+        "tn": 0,
+        "fp": 1410,
+        "fn": 0,
+        "tp": 8334
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "10 minutes after scheduled departure",
+            "id": "prior_service_lr",
+            "period": "September–October",
+            "subset": "unresolved"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "10 minutes after scheduled departure",
+          "id": "prior_service_lr"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_lr",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "10 minutes after scheduled departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 54145,
+      "threshold": 0.59,
+      "metrics": {
+        "accuracy": 0.9671991873672546,
+        "precision": 0.869434017811143,
+        "recall": 0.999830723656369,
+        "f1": 0.930084245335013,
+        "roc_auc": 0.9842315626799848,
+        "average_precision": 0.9175142852980832
+      },
+      "confusion_counts": {
+        "tn": 40556,
+        "fp": 1774,
+        "fn": 2,
+        "tp": 11813
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "10 minutes after scheduled departure",
+            "id": "prior_service_lr",
+            "period": "November–December",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "10 minutes after scheduled departure",
+          "id": "prior_service_lr"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "selected_before_assessment",
+      "model": "prior_service_lr",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "10 minutes after scheduled departure",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "labeled flights with no reported departure under 15 minutes late by the checkpoint",
+      "n": 13589,
+      "threshold": 0.59,
+      "metrics": {
+        "accuracy": 0.8693060563691221,
+        "precision": 0.869434017811143,
+        "recall": 0.999830723656369,
+        "f1": 0.930084245335013,
+        "roc_auc": 0.6237441083673945,
+        "average_precision": 0.9175142852980833
+      },
+      "confusion_counts": {
+        "tn": 0,
+        "fp": 1774,
+        "fn": 2,
+        "tp": 11813
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "10 minutes after scheduled departure",
+            "id": "prior_service_lr",
+            "period": "November–December",
+            "subset": "unresolved"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "departure_accuracy",
+          "checkpoint": "10 minutes after scheduled departure",
+          "id": "prior_service_lr"
+        }
+      }
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "predeclared_status_rule",
+      "model": "waiting_rule",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "10 minutes after scheduled departure",
+      "fit_period": null,
+      "threshold_selection_period": null,
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 55775,
+      "threshold": 0.5,
+      "metrics": {
+        "accuracy": 0.9747198565665621,
+        "precision": 0.8552955665024631,
+        "recall": 1.0,
+        "f1": 0.922004646531696,
+        "roc_auc": 0.9851394363525221,
+        "average_precision": 0.8552955665024631
+      },
+      "confusion_counts": {
+        "tn": 46031,
+        "fp": 1410,
+        "fn": 0,
+        "tp": 8334
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "10 minutes after scheduled departure",
+            "id": "waiting_rule",
+            "period": "September–October",
+            "subset": "all"
+          }
+        }
+      ]
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "predeclared_status_rule",
+      "model": "waiting_rule",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "10 minutes after scheduled departure",
+      "fit_period": null,
+      "threshold_selection_period": null,
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "labeled flights with no reported departure under 15 minutes late by the checkpoint",
+      "n": 9744,
+      "threshold": 0.5,
+      "metrics": {
+        "accuracy": 0.8552955665024631,
+        "precision": 0.8552955665024631,
+        "recall": 1.0,
+        "f1": 0.922004646531696,
+        "roc_auc": 0.5,
+        "average_precision": 0.8552955665024631
+      },
+      "confusion_counts": {
+        "tn": 0,
+        "fp": 1410,
+        "fn": 0,
+        "tp": 8334
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "10 minutes after scheduled departure",
+            "id": "waiting_rule",
+            "period": "September–October",
+            "subset": "unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "predeclared_status_rule",
+      "model": "waiting_rule",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "10 minutes after scheduled departure",
+      "fit_period": null,
+      "threshold_selection_period": null,
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 54145,
+      "threshold": 0.5,
+      "metrics": {
+        "accuracy": 0.9672361252193185,
+        "precision": 0.8694532342335712,
+        "recall": 1.0,
+        "f1": 0.9301684774051331,
+        "roc_auc": 0.9790455941412709,
+        "average_precision": 0.8694532342335712
+      },
+      "confusion_counts": {
+        "tn": 40556,
+        "fp": 1774,
+        "fn": 0,
+        "tp": 11815
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "10 minutes after scheduled departure",
+            "id": "waiting_rule",
+            "period": "November–December",
+            "subset": "all"
+          }
+        }
+      ]
+    },
+    {
+      "group": "status_assisted_departure",
+      "role": "predeclared_status_rule",
+      "model": "waiting_rule",
+      "target": "departure_delay_minutes >= 15",
+      "prediction_time": "10 minutes after scheduled departure",
+      "fit_period": null,
+      "threshold_selection_period": null,
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "labeled flights with no reported departure under 15 minutes late by the checkpoint",
+      "n": 13589,
+      "threshold": 0.5,
+      "metrics": {
+        "accuracy": 0.8694532342335712,
+        "precision": 0.8694532342335712,
+        "recall": 1.0,
+        "f1": 0.9301684774051331,
+        "roc_auc": 0.5,
+        "average_precision": 0.8694532342335712
+      },
+      "confusion_counts": {
+        "tn": 0,
+        "fp": 1774,
+        "fn": 0,
+        "tp": 11815
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "departure_accuracy",
+            "checkpoint": "10 minutes after scheduled departure",
+            "id": "waiting_rule",
+            "period": "November–December",
+            "subset": "unresolved"
+          }
+        }
+      ]
+    },
+    {
+      "group": "scheduled_arrival",
+      "role": "selected_before_assessment",
+      "model": "recent_arrivals_hgb",
+      "target": "arrival_delay_minutes >= 15",
+      "prediction_time": "Scheduled arrival",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 55628,
+      "threshold": 0.465,
+      "metrics": {
+        "accuracy": 0.9343496081110232,
+        "precision": 0.8437796128333559,
+        "recall": 0.7138930248539687,
+        "f1": 0.7734210199776648,
+        "roc_auc": 0.9755035444967213,
+        "average_precision": 0.894760588495765
+      },
+      "confusion_counts": {
+        "tn": 45743,
+        "fp": 1154,
+        "fn": 2498,
+        "tp": 6233
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "arrival_accuracy",
+            "checkpoint": "Scheduled arrival",
+            "id": "recent_arrivals_hgb",
+            "period": "September–October",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "arrival_accuracy",
+          "checkpoint": "Scheduled arrival",
+          "id": "recent_arrivals_hgb"
+        }
+      }
+    },
+    {
+      "group": "scheduled_arrival",
+      "role": "selected_before_assessment",
+      "model": "recent_arrivals_hgb",
+      "target": "arrival_delay_minutes >= 15",
+      "prediction_time": "Scheduled arrival",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-09",
+        "2013-10"
+      ],
+      "population": "labeled flights without a reported arrival by the checkpoint",
+      "n": 16668,
+      "threshold": 0.465,
+      "metrics": {
+        "accuracy": 0.7808975281977442,
+        "precision": 0.8437796128333559,
+        "recall": 0.7138930248539687,
+        "f1": 0.7734210199776648,
+        "roc_auc": 0.8552588794585791,
+        "average_precision": 0.8947605884957651
+      },
+      "confusion_counts": {
+        "tn": 6783,
+        "fp": 1154,
+        "fn": 2498,
+        "tp": 6233
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "arrival_accuracy",
+            "checkpoint": "Scheduled arrival",
+            "id": "recent_arrivals_hgb",
+            "period": "September–October",
+            "subset": "unresolved"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "arrival_accuracy",
+          "checkpoint": "Scheduled arrival",
+          "id": "recent_arrivals_hgb"
+        }
+      }
+    },
+    {
+      "group": "scheduled_arrival",
+      "role": "selected_before_assessment",
+      "model": "recent_arrivals_hgb",
+      "target": "arrival_delay_minutes >= 15",
+      "prediction_time": "Scheduled arrival",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "all flights with an observed target label",
+      "n": 53991,
+      "threshold": 0.465,
+      "metrics": {
+        "accuracy": 0.8977607379007613,
+        "precision": 0.8197480267152398,
+        "recall": 0.7744873081887279,
+        "f1": 0.7964751861957082,
+        "roc_auc": 0.9638160197914447,
+        "average_precision": 0.9095587753703929
+      },
+      "confusion_counts": {
+        "tn": 37670,
+        "fp": 2375,
+        "fn": 3145,
+        "tp": 10801
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "arrival_accuracy",
+            "checkpoint": "Scheduled arrival",
+            "id": "recent_arrivals_hgb",
+            "period": "November–December",
+            "subset": "all"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "arrival_accuracy",
+          "checkpoint": "Scheduled arrival",
+          "id": "recent_arrivals_hgb"
+        }
+      }
+    },
+    {
+      "group": "scheduled_arrival",
+      "role": "selected_before_assessment",
+      "model": "recent_arrivals_hgb",
+      "target": "arrival_delay_minutes >= 15",
+      "prediction_time": "Scheduled arrival",
+      "fit_period": [
+        "2013-01",
+        "2013-06"
+      ],
+      "threshold_selection_period": [
+        "2013-07",
+        "2013-08"
+      ],
+      "assessment_period": [
+        "2013-11",
+        "2013-12"
+      ],
+      "population": "labeled flights without a reported arrival by the checkpoint",
+      "n": 24033,
+      "threshold": 0.465,
+      "metrics": {
+        "accuracy": 0.7703158157533392,
+        "precision": 0.8197480267152398,
+        "recall": 0.7744873081887279,
+        "f1": 0.7964751861957082,
+        "roc_auc": 0.8563509975759294,
+        "average_precision": 0.9095587753703929
+      },
+      "confusion_counts": {
+        "tn": 7712,
+        "fp": 2375,
+        "fn": 3145,
+        "tp": 10801
+      },
+      "sources": [
+        {
+          "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+          "row": {
+            "experiment": "arrival_accuracy",
+            "checkpoint": "Scheduled arrival",
+            "id": "recent_arrivals_hgb",
+            "period": "November–December",
+            "subset": "unresolved"
+          }
+        }
+      ],
+      "threshold_selection_source": {
+        "file": "outputs/experiments/flight_delay_replay/cutoff_selection.csv",
+        "row": {
+          "experiment": "arrival_accuracy",
+          "checkpoint": "Scheduled arrival",
+          "id": "recent_arrivals_hgb"
+        }
+      }
+    }
+  ],
+  "waiting_rule_agreement_at_plus_10_minutes": [
+    {
+      "source": {
+        "file": "outputs/experiments/flight_delay_replay/waiting_rule_agreement_10.csv",
+        "row": {
+          "period": "September–October",
+          "model": "prior_service_lr"
+        }
+      },
+      "n": 55775,
+      "different_decisions": 0
+    },
+    {
+      "source": {
+        "file": "outputs/experiments/flight_delay_replay/waiting_rule_agreement_10.csv",
+        "row": {
+          "period": "November–December",
+          "model": "prior_service_lr"
+        }
+      },
+      "n": 54145,
+      "different_decisions": 2
+    }
+  ],
+  "historical_fixed_references": [
+    {
+      "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+      "row_filter": {
+        "experiment": "departure_f1",
+        "id": "ensemble_reference_0265"
+      },
+      "threshold": 0.265,
+      "original_selection": "undocumented"
+    },
+    {
+      "file": "outputs/experiments/flight_delay_replay/historical_metrics.csv",
+      "row_filter": {
+        "experiment": "arrival_accuracy",
+        "id": "arrival_reference_0510"
+      },
+      "threshold": 0.51,
+      "original_selection": "undocumented"
+    }
+  ]
+}
